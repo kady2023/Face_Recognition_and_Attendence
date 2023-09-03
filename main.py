@@ -7,6 +7,8 @@ from PIL import Image, ImageTk
 import face_recognition
 import util
 
+from test import test
+
 
 class App:
     def __init__(self):
@@ -54,26 +56,47 @@ class App:
 
 
     def login(self):
-        name = util.recognize(self.most_recent_capture_arr, self.db_dir)
-        if name in {'unknown_person', 'no_persons_found'}:
-            util.msg_box('Oops...', 'Unkown user, Please register new user or try again.')
+        label = test(
+            image=self.most_recent_capture_arr,
+            model_dir='C:\Users\Nitin Kadyan\Desktop\Coding\Machine Learning\Silent-Face-Anti-Spoofing-master\Silent-Face-Anti-Spoofing-master\resources\anti_spoof_models',
+            device_id=0
+        )
+
+        if label == 1:
+
+            name = util.recognize(self.most_recent_capture_arr, self.db_dir)
+
+            if name in ['unknown_person', 'no_persons_found']:
+                util.msg_box('Ups...', 'Unknown user. Please register new user or try again.')
+            else:
+                util.msg_box('Welcome back !', 'Welcome, {}.'.format(name))
+                with open(self.log_path, 'a') as f:
+                    f.write('{},{},in\n'.format(name, datetime.datetime.now()))
+                    f.close()
         else:
-            util.msg_box('Welcome back !', 'Welcome {}'.format(name))
-            with open(self.log_path, 'a') as f:
-                f.write('{},{},in\n'.format(name, datetime.datetime.now()))
-                f.close()
+            util.msg_box('Hey, you are a spoofer!', 'You are fake')
 
     def logout(self):
+        label = test(
+            image=self.most_recent_capture_arr,
+            model_dir='C:\Users\Nitin Kadyan\Desktop\Coding\Machine Learning\Silent-Face-Anti-Spoofing-master\Silent-Face-Anti-Spoofing-master\resources\anti_spoof_models',
+            device_id=0
+        )
 
-        name = util.recognize(self.most_recent_capture_arr, self.db_dir)
+        if label == 1:
 
-        if name in ['unknown_person', 'no_persons_found']:
-            util.msg_box('Oops...', 'Unknown user. Please register new user or try again.')
+            name = util.recognize(self.most_recent_capture_arr, self.db_dir)
+
+            if name in ['unknown_person', 'no_persons_found']:
+                util.msg_box('Oops...', 'Unknown user. Please register new user or try again.')
+            else:
+                util.msg_box('Welcome back !', 'Welcome, {}.'.format(name))
+                with open(self.log_path, 'a') as f:
+                    f.write('{},{},out\n'.format(name, datetime.datetime.now()))
+                    f.close()
         else:
-            util.msg_box('Welcome back !', 'Welcome, {}.'.format(name))
-            with open(self.log_path, 'a') as f:
-                f.write('{},{},out\n'.format(name, datetime.datetime.now()))
-                f.close()
+            util.msg_box('Hey, you are a spoofer!', 'You are fake')
+
 
     def register_new_user(self):
         self.register_new_user_window = tk.Toplevel(self.main_window)
