@@ -57,7 +57,7 @@ class App:
     def login(self):
         label = test(
             image=self.most_recent_capture_arr,
-            model_dir='C:\Users\Nitin Kadyan\Desktop\Coding\Machine Learning\Silent-Face-Anti-Spoofing-master\Silent-Face-Anti-Spoofing-master\resources\anti_spoof_models',
+            model_dir='C:/Users/Nitin Kadyan/Desktop/Coding/Machine Learning/Silent-Face-Anti-Spoofing-master/Silent-Face-Anti-Spoofing-master/resources/anti_spoof_models',
             device_id=0
         )
 
@@ -78,7 +78,7 @@ class App:
     def logout(self):
         label = test(
             image=self.most_recent_capture_arr,
-            model_dir='C:\Users\Nitin Kadyan\Desktop\Coding\Machine Learning\Silent-Face-Anti-Spoofing-master\Silent-Face-Anti-Spoofing-master\resources\anti_spoof_models',
+            model_dir='C:/Users/Nitin Kadyan/Desktop/Coding/Machine Learning/Silent-Face-Anti-Spoofing-master/Silent-Face-Anti-Spoofing-master/resources/anti_spoof_models',
             device_id=0
         )
 
@@ -89,7 +89,7 @@ class App:
             if name in ['unknown_person', 'no_persons_found']:
                 util.msg_box('Oops...', 'Unknown user. Please register new user or try again.')
             else:
-                util.msg_box('Welcome back !', 'Welcome, {}.'.format(name))
+                util.msg_box('Goodbye !', 'Bye, {}.'.format(name))
                 with open(self.log_path, 'a') as f:
                     f.write('{},{},out\n'.format(name, datetime.datetime.now()))
                     f.close()
