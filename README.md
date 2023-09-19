@@ -18,7 +18,7 @@ The project is built using the following technologies:
 - Python
 - OpenCV
 - Dlib
-- React.js (for the web interface)
+- Pillow
 
 ## execution
 
@@ -31,7 +31,7 @@ In Windows, you will need to do a couple of additional steps before starting wit
 
 ### linux, mac
 
-- Install the packages in requirements_windows.txt except cmake & dlib
+- Install the packages in requirements.txt.
 
 ## spoofing feature
 
